@@ -25,6 +25,7 @@ class DemoListitem extends HTMLElement {
         this.id = `item-${idGen++}`;
 
         this.input = shadowRoot.querySelector('input');
+        this.input.id = `${this.id}-input`;
         this.input.value = value;
         this.input.addEventListener('input', () => {
             this.ariaLabel = this.input.value;
@@ -34,6 +35,12 @@ class DemoListitem extends HTMLElement {
         });
 
         this.moveUp = shadowRoot.querySelector('.move-up');
+        this.moveUp.id = `${this.id}-moveup`;
+        this.moveUp.ariaLabel = 'Move up';
+        this.moveUp.setAttribute(
+            'aria-labelledby',
+            `${this.moveUp.id} ${this.input.id}`,
+        );
         this.moveUp.onclick = () => {
             this.dispatchEvent(
                 new CustomEvent('demo-move-up', { bubbles: true }),
